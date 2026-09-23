@@ -1,66 +1,223 @@
-# magnum-game-of-life-3d
-C/C++ game of life 3D project visualized with magnum.
+# Magnum Game of Life
 
-This project is mainly based on the C/C++ libraries: 
-grapic library https://magnum.graphics/ as well https://magnum.graphics/corrade/ for utility functions. 
+A C/C++ implementation of **Conway's Game of Life** visualized in 2D and 3D using the [Magnum](https://magnum.graphics/) graphics engine.
 
-For building magnum and corrade from scratch checkout the repo from https://github.com/mosra/magnum and https://magnum.graphics/corrade/.
-Important: Build the corrade project before building the magnum project.
+The project supports different computation modes, including:
 
-Building the corrade project:
- ```
-cd corrade 
-mkdir build && cd build
-cmake ..
-cmake --build .
- ```
+* CPU serial computation
+* CPU parallel computation
+* GPU parallel computation
 
-Building the magnum project:
-```
-cd magnum
-mkdir build && cd build
-cmake ..\ 
-   -DMAGNUM_WITH_SDL2APPLICATION=ON
- && make 
- && make install
-```
+The application can be used to experiment with different grid dimensions and compare the resulting computation times.
 
-After building the magnum project you can build this C/C++ project.
+---
 
-The game of life project has following order structure: 
+## Overview
 
-```
-./build
-./CMakeLists.txt
-./corrade -> ../../corrade/
-./magnum -> ../../magnum/
-./modules
-./README.md
-./Screenshot-1.png
-./Screenshot-2.png
-./Screenshot-3.png
-./src
+The project combines a Game of Life simulation with real-time 2D and 3D visualization.
+
+The simulation can be executed with different dimensions and computation modes:
+
+```text
+Game of Life
+     |
+     +----------------------+
+     |                      |
+     v                      v
+    2D                     3D
+     |                      |
+     +----------+-----------+
+                |
+                v
+        Computation Mode
+                |
+       +--------+--------+
+       |        |        |
+       v        v        v
+   CPU Serial CPU Parallel GPU Parallel
 ```
 
-Same as before: 
+---
 
-```
-cd magnum-game-of-life
-mkdir build && cd build
-cmake ..
-cmake --build .
-```
+## Features
 
-Images of GameOfLife in 3D:
+* Conway's Game of Life
+* 2D simulation
+* 3D simulation
+* Magnum-based visualization
+* CPU serial computation
+* CPU parallel computation
+* GPU parallel computation
+* Configurable simulation dimensions
+* Runtime computation measurements
+
+---
+
+# Screenshots
+
+## 3D
+
+The project contains several 3D visualizations of the simulation:
+
 ![Top Ansicht für Game of Life](Screenshot-3.png)
+
 ![Top Ansicht für Game of Life](Screenshot-1.png)
+
 ![Top Ansicht für Game of Life](Screenshot-2.png)
 
-Some results with different configurations (3d):
+## 2D
 
-/bin/MagnumGameOfLife --dimension 32 --computemode 1
+The 2D version provides a separate visualization:
 
+![Top Ansicht für Game of Life](Screenshot-4.png)
+
+![Top Ansicht für Game of Life](Screenshot-5.png)
+
+![Top Ansicht für Game of Life](Screenshot-6.png)
+
+---
+
+# Technology
+
+The project is based primarily on:
+
+* C/C++
+* [Magnum](https://magnum.graphics/)
+* [Corrade](https://magnum.graphics/corrade/)
+* CMake
+
+Magnum is used for visualization and application functionality, while Corrade provides utility functionality used by the Magnum ecosystem.
+
+---
+
+# Dependencies
+
+Before building this project, **Corrade must be built before Magnum**.
+
+The project expects the Magnum and Corrade source trees to be available locally.
+
+A typical directory layout is:
+
+```text
+.
+├── build
+├── CMakeLists.txt
+├── corrade -> ../../corrade/
+├── magnum -> ../../magnum/
+├── modules
+├── README.md
+└── src
 ```
+
+---
+
+# Building Dependencies
+
+## 1. Build Corrade
+
+Clone or otherwise provide the Corrade source tree and build it first:
+
+```bash
+cd corrade
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+## 2. Build Magnum
+
+After Corrade has been built:
+
+```bash
+cd magnum
+mkdir build
+cd build
+
+cmake .. \
+    -DMAGNUM_WITH_SDL2APPLICATION=ON
+
+make
+make install
+```
+
+After Magnum has been installed, the Game of Life project can be built.
+
+---
+
+# Build the Project
+
+Clone the project and create a build directory:
+
+```bash
+cd magnum-game-of-life
+mkdir build
+cd build
+```
+
+Configure the project:
+
+```bash
+cmake ..
+```
+
+Build:
+
+```bash
+cmake --build .
+```
+
+---
+
+# Running the Simulation
+
+The project provides separate executables for the 3D and 2D versions.
+
+## 3D
+
+Example:
+
+```bash
+./bin/MagnumGameOfLife --dimension 32 --computemode 1
+```
+
+## 2D
+
+Example:
+
+```bash
+./bin/MagnumGameOfLife2d --dimension 512 --computemode 1
+```
+
+The dimension controls the size of the simulation grid.
+
+---
+
+# Computation Modes
+
+The application supports different computation modes.
+
+| Mode | Description  |
+| ---: | ------------ |
+|  `1` | CPU Serial   |
+|  `2` | CPU Parallel |
+|  `3` | GPU Parallel |
+
+This allows the same simulation to be executed using different processing strategies.
+
+---
+
+# Benchmark Results
+
+The application reports the computation time for each iteration.
+
+The following results are preserved from the original project.
+
+## 3D – Dimension 32
+
+### CPU Serial
+
+```text
 Computing took 0.00742187s with mode: CPUSerial
 Computing took 0.00565313s with mode: CPUSerial
 Computing took 0.00623309s with mode: CPUSerial
@@ -81,9 +238,9 @@ Computing took 0.00578882s with mode: CPUSerial
 Computing took 0.00594202s with mode: CPUSerial
 ```
 
-/bin/MagnumGameOfLife --dimenseion 32 --computemode 2
+### CPU Parallel
 
-```
+```text
 Computing took 0.00172155s with mode: CPUParallel
 Computing took 0.00105463s with mode: CPUParallel
 Computing took 0.000949706s with mode: CPUParallel
@@ -104,14 +261,13 @@ Computing took 0.00109494s with mode: CPUParallel
 Computing took 0.000876133s with mode: CPUParallel
 ```
 
-/bin/MagnumGameOfLife --dimension 32 --computemode 2
+### GPU Parallel
 
-```
+```text
 Computing took 0.0699127s with mode: GPUParallel
 Computing took 0.000171408s with mode: GPUParallel
 Computing took 0.000175476s with mode: GPUParallel
 Computing took 0.000176083s with mode: GPUParallel
-Computing took 0.000177023s with mode: GPUParallel
 Computing took 0.000176546s with mode: GPUParallel
 Computing took 0.000177566s with mode: GPUParallel
 Computing took 0.000176215s with mode: GPUParallel
@@ -128,7 +284,6 @@ Computing took 0.000169251s with mode: GPUParallel
 Computing took 0.000172731s with mode: GPUParallel
 Computing took 0.000184641s with mode: GPUParallel
 Computing took 0.00017047s with mode: GPUParallel
-Computing took 0.000173116s with mode: GPUParallel
 Computing took 0.000171859s with mode: GPUParallel
 Computing took 0.000166565s with mode: GPUParallel
 Computing took 0.00079048s with mode: GPUParallel
@@ -136,9 +291,11 @@ Computing took 0.000210384s with mode: GPUParallel
 Computing took 0.000174102s with mode: GPUParallel
 ```
 
-/bin/MagnumGameOfLife --dimension 64 --computemode 1
+## 3D – Dimension 64
 
-```
+### CPU Serial
+
+```text
 Computing took 0.0555197s with mode: CPUSerial
 Computing took 0.0539763s with mode: CPUSerial
 Computing took 0.0545522s with mode: CPUSerial
@@ -161,9 +318,9 @@ Computing took 0.0529288s with mode: CPUSerial
 Computing took 0.0561799s with mode: CPUSerial
 ```
 
-./bin/MagnumGameOfLife --dimension 64 --computemode 2
+### CPU Parallel
 
-```
+```text
 Computing took 0.0114412s with mode: CPUParallel
 Computing took 0.0126738s with mode: CPUParallel
 Computing took 0.0114358s with mode: CPUParallel
@@ -186,9 +343,9 @@ Computing took 0.0121604s with mode: CPUParallel
 Computing took 0.0128584s with mode: CPUParallel
 ```
 
-/bin/MagnumGameOfLife --dimension 64 --computemode 3
+### GPU Parallel
 
-```
+```text
 Computing took 0.00124912s with mode: GPUParallel
 Computing took 0.000543594s with mode: GPUParallel
 Computing took 0.000573824s with mode: GPUParallel
@@ -210,29 +367,27 @@ Computing took 0.00108582s with mode: GPUParallel
 Computing took 0.000460295s with mode: GPUParallel
 ```
 
-Images of GameOfLife in 2D:
-![Top Ansicht für Game of Life](Screenshot-4.png)
-![Top Ansicht für Game of Life](Screenshot-5.png)
-![Top Ansicht für Game of Life](Screenshot-6.png)
+---
 
-Some results with different configurations (2d):
+# 2D Benchmark
 
-For testing the 2d Version
-/bin/MagnumGameOfLife2d --dimension 512 --computemode 1
+The 2D version was tested with a dimension of `512`.
 
-```
+## CPU Serial
+
+```text
 Computing took 0.01658s with mode: CPUSerial
 Computing took 0.0160181s with mode: CPUSerial
 Computing took 0.0164174s with mode: CPUSerial
-Computing took 0.0161742s with mode: CPUSerial
+Computing took 0.0161741s with mode: CPUSerial
 Computing took 0.0155877s with mode: CPUSerial
 Computing took 0.0159631s with mode: CPUSerial
 Computing took 0.0163439s with mode: CPUSerial
 ```
 
-/bin/MagnumGameOfLife2d --dimension 512 --computemode 2
+## CPU Parallel
 
-```
+```text
 Computing took 0.00466909s with mode: CPUParallel
 Computing took 0.00490792s with mode: CPUParallel
 Computing took 0.00478843s with mode: CPUParallel
@@ -243,16 +398,16 @@ Computing took 0.00664743s with mode: CPUParallel
 Computing took 0.00769989s with mode: CPUParallel
 Computing took 0.00524594s with mode: CPUParallel
 Computing took 0.00553464s with mode: CPUParallel
-Computing took 0.00489683s with mode: CPUParallel
+Computing took 0.00489609s with mode: CPUParallel
 Computing took 0.00455409s with mode: CPUParallel
 ```
 
-/bin/MagnumGameOfLife2d --dimension 512 --computemode 3
+## GPU Parallel
 
-```
+```text
 Computing took 0.000853757s with mode: GPUParallel
 Computing took 0.000692443s with mode: GPUParallel
-Computing took 0.000889507s with mode: GPUParallel
+Computing took 0.000889844s with mode: GPUParallel
 Computing took 0.000740654s with mode: GPUParallel
 Computing took 0.000690138s with mode: GPUParallel
 Computing took 0.000761807s with mode: GPUParallel
@@ -265,3 +420,43 @@ Computing took 0.00065436s with mode: GPUParallel
 Computing took 0.000755198s with mode: GPUParallel
 Computing took 0.000708947s with mode: GPUParallel
 ```
+
+---
+
+# Project Structure
+
+```text
+magnum-game-of-life
+├── build
+├── CMakeLists.txt
+├── modules
+├── src
+├── corrade -> ../../corrade/
+├── magnum -> ../../magnum/
+└── README.md
+```
+
+The `corrade` and `magnum` entries refer to the locally available dependency trees used to build the project.
+
+---
+
+# Purpose
+
+This project combines a classic cellular-automaton simulation with 2D/3D rendering and different computation backends.
+
+The main areas explored by the project are:
+
+* Game of Life simulation
+* 3D visualization
+* Parallel computation
+* GPU computation
+* CMake-based C++ projects
+* Magnum graphics programming
+* Performance measurement
+
+---
+
+# License
+
+See the repository for the applicable project license.
+
