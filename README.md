@@ -1,203 +1,173 @@
 # Magnum Game of Life
 
-A configurable implementation of **Conway's Game of Life** with an interactive visualization and command-line configuration.
+A Conway's Game of Life implementation written in C++ using the Magnum graphics engine.
 
-The project focuses on simulating cellular automata efficiently while providing different ways to configure the simulation and inspect its behavior.
-
-## Overview
-
-Conway's Game of Life is a cellular automaton in which each cell is either alive or dead.
-
-Each generation is calculated from the state of the surrounding cells according to the classic Game of Life rules:
-
-* A live cell with fewer than two neighbors dies.
-* A live cell with two or three neighbors survives.
-* A live cell with more than three neighbors dies.
-* A dead cell with exactly three neighbors becomes alive.
-
-Despite these simple rules, the simulation produces complex patterns and long-running structures.
-
----
+The project combines a cellular automaton with real-time visualization and interactive controls.
 
 ## Features
 
-* Conway's Game of Life simulation
-* Configurable board dimensions
-* Configurable simulation parameters
-* Interactive visualization
-* Randomized starting configurations
-* Command-line configuration
-* Multiple simulation examples
-* Performance/benchmark measurements
-* Screenshot examples
+* Conway's Game of Life
+* C++ implementation
+* Magnum graphics engine
+* Real-time visualization
+* Configurable simulation dimensions
+* Interactive simulation
+* CMake build system
 
----
+## Game of Life
+
+Conway's Game of Life is a cellular automaton based on a simple set of rules.
+
+Each cell can be either:
+
+* **Alive**
+* **Dead**
+
+The state of each cell is determined by its neighbouring cells.
+
+The standard rules are:
+
+1. A live cell with fewer than two live neighbours dies.
+2. A live cell with two or three live neighbours survives.
+3. A live cell with more than three live neighbours dies.
+4. A dead cell with exactly three live neighbours becomes alive.
+
+Despite these simple rules, complex patterns can emerge from the simulation.
+
+## Technology Stack
+
+* **C++**
+* **Magnum**
+* **CMake**
 
 ## Project Structure
 
-```text
+```text id="x1j5n8"
 magnum-game-of-life/
-│
-├── bin/
-│
-├── ...
-├── screenshots/
-│
+├── modules/
+├── src/
+├── CMakeLists.txt
 └── README.md
 ```
 
-The `bin/` directory contains the generated executable/build output.
-
----
-
-## Requirements
-
-A C++ development environment and the libraries required by the project are needed to build the application.
-
-The exact dependencies depend on the platform and graphics configuration used for the project.
-
----
-
 ## Build
 
-Build the project using the build configuration included in the repository.
+Create a build directory:
 
-After building, the resulting executable is available under:
-
-```text
-./bin/
+```bash id="k1j7r4"
+mkdir build
+cd build
 ```
 
----
+Configure the project with CMake:
 
-## Running the Simulation
+```bash id="h3m8y6"
+cmake ..
+```
 
-The application can be started from the command line.
+Build the application:
+
+```bash id="v7p2q9"
+cmake --build .
+```
+
+## Run
+
+After building the project, start the executable:
+
+```bash id="m4c8z1"
+./bin/MagnumGameOfLife
+```
+
+The simulation can be started with a configurable dimension.
 
 Example:
 
-```bash
-./bin/<executable>
+```bash id="r9d3k5"
+./bin/MagnumGameOfLife --dimension 32
 ```
-
-The simulation supports command-line configuration for parameters such as the board dimension.
-
-For example:
-
-```bash
-./bin/<executable> --dimension 100
-```
-
-Use:
-
-```bash
-./bin/<executable> --help
-```
-
-to inspect the available command-line options.
-
----
 
 ## Simulation
 
-The simulation operates generation by generation.
+The simulation updates the state of the cellular grid continuously.
 
-A generation consists of:
+Each iteration calculates the number of living neighbours for every cell and applies the Game of Life rules.
 
-1. evaluating the neighbors of each cell
-2. applying the Game of Life rules
-3. creating the next board state
-4. updating the visualization
-5. continuing with the next generation
+```text id="n6w2p4"
+Current Grid
+     │
+     ▼
+Count Neighbours
+     │
+     ▼
+Apply Game of Life Rules
+     │
+     ▼
+Generate Next Grid
+     │
+     ▼
+Render
+     │
+     └──────► Next Iteration
+```
 
-The simulation can produce stable structures, oscillators and moving patterns depending on the initial state.
+## Results
 
----
+The following screenshots show the rendered Game of Life simulation at different stages.
+
+### Result 1
+
+![Game of Life Result 1](frame_00050.png)
+
+### Result 2
+
+![Game of Life Result 2](frame_01000.png)
+
+### Result 3
+
+![Game of Life Result 3](frame_04000.png)
+
+### Result 4
+
+![Game of Life Result 4](frame_05000.png)
 
 ## Screenshots
 
-The repository contains several screenshots demonstrating the simulation:
+Additional screenshots from the project are included in the repository and demonstrate the visual output of the Magnum application.
 
-```text
-screenshots/
+## Configuration
+
+The simulation dimension can be configured when starting the application.
+
+For example:
+
+```bash id="c5m7q2"
+./bin/MagnumGameOfLife --dimension 32
 ```
 
-Examples include different board states and simulation configurations.
+This allows different grid sizes to be tested without changing the source code.
 
----
+## Magnum
 
-## Performance
+The project uses the Magnum graphics engine to render the simulation.
 
-The project also contains benchmark/performance information.
+Magnum provides the graphics and application framework required to display the cellular automaton in real time.
 
-Performance depends on factors such as:
+## Possible Improvements
 
-* board dimensions
-* number of generations
-* hardware
-* rendering overhead
-* simulation configuration
+Possible future extensions include:
 
-For meaningful comparisons, benchmarks should be performed under the same configuration and hardware conditions.
+* Additional simulation patterns
+* Adjustable simulation speed
+* Pause and resume controls
+* Interactive cell editing
+* Different Game of Life rule sets
+* Larger configurable grids
+* Additional visualisation options
 
----
+## Project Purpose
 
-## Command-Line Options
+The project demonstrates how a relatively simple cellular automaton can be implemented in C++ and visualized using a modern graphics framework.
 
-The application provides command-line options for configuring the simulation.
-
-One of the main parameters is the board dimension:
-
-```bash
---dimension <value>
-```
-
-Example:
-
-```bash
-./bin/<executable> --dimension 200
-```
-
-Run the application with `--help` to see the complete set of supported options.
-
----
-
-## Why Game of Life?
-
-Game of Life is a useful example for experimenting with:
-
-* cellular automata
-* simulation algorithms
-* grid-based computation
-* state transitions
-* visualization
-* performance optimization
-* algorithmic complexity
-
-The project is also useful for exploring how simple local rules can produce complex global behavior.
-
----
-
-## Project Status
-
-The project provides a working Game of Life simulation with visualization and configurable simulation parameters.
-
-The repository also contains example screenshots and benchmark information.
-
-Future improvements could include:
-
-* additional predefined patterns
-* improved rendering performance
-* more benchmark automation
-* configuration files
-* automated tests
-* additional visualization options
-
----
-
-## Author
-
-**Markus**
-
-Simulation / C++ project.
+It combines algorithmic logic with real-time ren
 
