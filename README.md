@@ -1,8 +1,8 @@
 # Magnum Game of Life
 
-A Conway's Game of Life implementation written in C++ using the Magnum graphics engine.
+A C++ implementation of Conway's Game of Life using the Magnum graphics engine.
 
-The project combines a cellular automaton with real-time visualization and interactive controls.
+The project combines the rules of a cellular automaton with real-time graphical rendering.
 
 ## Features
 
@@ -11,17 +11,12 @@ The project combines a cellular automaton with real-time visualization and inter
 * Magnum graphics engine
 * Real-time visualization
 * Configurable simulation dimensions
-* Interactive simulation
 * CMake build system
+* Visual simulation results
 
-## Game of Life
+## About Conway's Game of Life
 
-Conway's Game of Life is a cellular automaton based on a simple set of rules.
-
-Each cell can be either:
-
-* **Alive**
-* **Dead**
+Conway's Game of Life is a cellular automaton in which cells on a grid are either alive or dead.
 
 The state of each cell is determined by its neighbouring cells.
 
@@ -32,7 +27,7 @@ The standard rules are:
 3. A live cell with more than three live neighbours dies.
 4. A dead cell with exactly three live neighbours becomes alive.
 
-Despite these simple rules, complex patterns can emerge from the simulation.
+Simple rules can produce complex and evolving patterns.
 
 ## Technology Stack
 
@@ -42,7 +37,7 @@ Despite these simple rules, complex patterns can emerge from the simulation.
 
 ## Project Structure
 
-```text id="x1j5n8"
+```text
 magnum-game-of-life/
 ├── modules/
 ├── src/
@@ -54,20 +49,20 @@ magnum-game-of-life/
 
 Create a build directory:
 
-```bash id="k1j7r4"
+```bash
 mkdir build
 cd build
 ```
 
-Configure the project with CMake:
+Configure the project:
 
-```bash id="h3m8y6"
+```bash
 cmake ..
 ```
 
 Build the application:
 
-```bash id="v7p2q9"
+```bash
 cmake --build .
 ```
 
@@ -75,99 +70,89 @@ cmake --build .
 
 After building the project, start the executable:
 
-```bash id="m4c8z1"
+```bash
 ./bin/MagnumGameOfLife
 ```
 
-The simulation can be started with a configurable dimension.
+The simulation dimension can be configured using the `--dimension` option:
 
-Example:
-
-```bash id="r9d3k5"
+```bash
 ./bin/MagnumGameOfLife --dimension 32
 ```
 
 ## Simulation
 
-The simulation updates the state of the cellular grid continuously.
+The simulation repeatedly calculates the next generation of the cellular grid.
 
-Each iteration calculates the number of living neighbours for every cell and applies the Game of Life rules.
-
-```text id="n6w2p4"
-Current Grid
-     │
-     ▼
+```text
+Current Generation
+        │
+        ▼
 Count Neighbours
-     │
-     ▼
+        │
+        ▼
 Apply Game of Life Rules
-     │
-     ▼
-Generate Next Grid
-     │
-     ▼
+        │
+        ▼
+Next Generation
+        │
+        ▼
 Render
-     │
-     └──────► Next Iteration
+        │
+        └──────────► Repeat
 ```
 
 ## Results
 
-The following screenshots show the rendered Game of Life simulation at different stages.
+The repository contains several screenshots showing the visual result of the simulation at different stages.
 
-### Result 1
-
-![Game of Life Result 1](frame_00050.png)
-
-### Result 2
-
-![Game of Life Result 2](frame_01000.png)
-
-### Result 3
-
-![Game of Life Result 3](frame_04000.png)
-
-### Result 4
-
-![Game of Life Result 4](frame_05000.png)
+These images are part of the project presentation and demonstrate the evolution of the Game of Life.
 
 ## Screenshots
 
-Additional screenshots from the project are included in the repository and demonstrate the visual output of the Magnum application.
+The available project screenshots are kept in the repository and should be viewed together with the simulation.
+
+![Game of Life Result](Screenshot-1.png)
+
+Additional screenshots stored in the repository can be added here using their relative filenames.
 
 ## Configuration
 
-The simulation dimension can be configured when starting the application.
+The simulation grid can be configured when starting the application.
 
 For example:
 
-```bash id="c5m7q2"
+```bash
 ./bin/MagnumGameOfLife --dimension 32
 ```
 
-This allows different grid sizes to be tested without changing the source code.
+Changing the dimension allows different grid sizes to be tested.
 
 ## Magnum
 
-The project uses the Magnum graphics engine to render the simulation.
+The project uses the **Magnum** graphics engine for rendering the cellular automaton.
 
-Magnum provides the graphics and application framework required to display the cellular automaton in real time.
+Magnum provides the application and graphics functionality required to visualize the simulation.
 
 ## Possible Improvements
 
 Possible future extensions include:
 
-* Additional simulation patterns
 * Adjustable simulation speed
-* Pause and resume controls
+* Pause and resume functionality
 * Interactive cell editing
+* Additional starting patterns
 * Different Game of Life rule sets
 * Larger configurable grids
-* Additional visualisation options
+* Additional visualization modes
 
 ## Project Purpose
 
-The project demonstrates how a relatively simple cellular automaton can be implemented in C++ and visualized using a modern graphics framework.
+The project demonstrates how a classic cellular automaton can be implemented in C++ and visualized using a graphics framework.
 
-It combines algorithmic logic with real-time ren
+It combines algorithmic logic with real-time rendering and provides a visual representation of how the cellular system evolves over time.
+
+## Author
+
+**Markus**
 
